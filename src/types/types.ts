@@ -21,6 +21,7 @@ export interface todoItemType {
   item: listTodoType;
   handleDelete: (id: string) => void;
   handleEdit: (id: string) => void;
+  handleToggleComplete: (id: string) => void;
 }
 
 
