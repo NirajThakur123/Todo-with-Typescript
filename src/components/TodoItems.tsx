@@ -1,7 +1,7 @@
 import type { listTodoType, todoItemType } from "@/types/types";
 import { Button } from "./ui/button";
 
-const TodoItems = ({ item, handleDelete, handleEdit }: todoItemType) => {
+const TodoItems = ({ item, handleDelete, handleEdit, handleToggleComplete }: todoItemType) => {
   return (
     <>
       <div>
@@ -9,7 +9,13 @@ const TodoItems = ({ item, handleDelete, handleEdit }: todoItemType) => {
           <span className={`text-lg ${item.isCompleted ? "line-through" : ""}`}>
             {item.todo}
           </span>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <Button
+              className={`text-white cursor-pointer ${item.isCompleted ? "bg-yellow-500 hover:bg-yellow-600" : "bg-green-500 hover:bg-green-600"}`}
+              onClick={() => handleToggleComplete(item.id)}
+            >
+              {item.isCompleted ? "Undo" : "Complete"}
+            </Button>
             <Button
               className="text-white cursor-pointer"
               onClick={() => handleEdit(item.id)}

@@ -9,6 +9,7 @@ const ListTodo = <T extends listTodoType>({
   form,
 }: propsType<T>) => {
   const { setIsEditing } = useFormContext();
+  
   const handleDelete = (id: string) => {
     setListTodo?.((prev) => prev.filter((item) => item.id !== id));
   };
@@ -21,6 +22,16 @@ const ListTodo = <T extends listTodoType>({
     );
     form.setFocus("todoItem");
   };
+  
+  const handleToggleComplete = (id: string) => {
+    setListTodo?.((prev) => 
+      prev.map((item) => 
+        item.id === id 
+          ? { ...item, isCompleted: !item.isCompleted } 
+          : item
+      )
+    );
+  };
 
   useEffect(() => {
     const storedData = localStorage.getItem("todoItem");
@@ -31,8 +42,10 @@ const ListTodo = <T extends listTodoType>({
     <div>
       {listTodo?.map((item) => (
         <TodoItems
+          key={item.id}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
+          handleToggleComplete={handleToggleComplete}
           item={item}
         />
       ))}
